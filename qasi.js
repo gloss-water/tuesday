@@ -5,7 +5,7 @@ const path = require('path');
 const sqlite = require('sqlite');
 
 // Configuration
-const config = require('./config');
+const config = require('./data/config');
 
 // Client set up
 const qasi = new Client({

@@ -20,12 +20,12 @@ class About extends Command {
             color: 8700043,
             description: stripIndents`
                 __**Cassandra v2.0 (QASI)**__
-                Cassandra v2.0, code name QASI, is a complete rewrite of the cassandra.js.
+                Cassandra v2.0, code name 'QASI', is a complete rewrite of cassandra.js.
                 Cassie was a simple discord.js bot used for administration / image search.
                 Now, it harnesses the power of discord.js-commando to make it easier to
                 use, maintain, and update.
 
-                [QASI Github](https://github.com/gloss-water/qasi)
+                [qasi on github](https://github.com/gloss-water/qasi)
 
                 [Discord.js](https://github.com/hydrabolt/discord.js)
                 [Commando](https://github.com/Gawdl3y/discord.js-commando)

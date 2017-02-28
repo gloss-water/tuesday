@@ -9,7 +9,7 @@ const config = require('./data/config');
 
 // Client set up
 const qasi = new Client({
-    owner: config.auth.owner,
+    owner: config.auth.ownerID,
     commandPrefix: config.prefix
 });
 qasi.setProvider(
@@ -17,7 +17,8 @@ qasi.setProvider(
         .then(db => new SQLiteProvider(db))
 );
 qasi.registry.registerGroups([
-    ['admin', 'Administration']
+    ['admin', 'Administration'],
+    ['info', 'Information']
 ]).registerDefaults().registerCommandsIn(path.join(__dirname, 'commands'));
 
 
@@ -26,6 +27,7 @@ qasi
         winston.info(`QASI initialized. Logged in as ${qasi.user.username}#${qasi.user.discriminator}.`)
     })
     .on('message', message => {
+        if (message.author.bot) return;
         winston.info(message.cleanContent);
     })
     .on('disconnect', () => {

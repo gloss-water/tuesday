@@ -33,7 +33,7 @@ class Stats extends Command {
         return msg.embed(new RichEmbed()
                 .setTitle(`Cassandra 2.0 statistics! ^_^`)
                 .setFooter(`requested by ${msg.author.username}`, msg.author.avatarURL)
-                .setDescription(`
+                .setDescription(stripIndents`
                     Uptime: ${uptime(this.client.uptime % 8.64e7)}
                     Ping: ${Math.round(msg.client.ping)}ms
                     Channels: ${this.client.channels.size}

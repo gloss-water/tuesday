@@ -6,6 +6,7 @@ const plural = (a, p) => {
     return a !== 1 ? p + 's ' : p + ' ';
 }
 
+ //MIT LICENSE (C) MIKACHU @ SWEDENS.COM
 const uptime = (s) => {
     const day = (s/86400000|0);
     const hour = (s%86400000)/3.6e6|0;

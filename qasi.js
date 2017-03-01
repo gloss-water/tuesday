@@ -18,7 +18,8 @@ qasi.setProvider(
 );
 qasi.registry.registerGroups([
     ['admin', 'Administration'],
-    ['info', 'Information']
+    ['info', 'Information'],
+    ['misc', 'Miscellaneous']
 ]).registerDefaults().registerCommandsIn(path.join(__dirname, 'commands'));
 
 

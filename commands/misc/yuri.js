@@ -1,7 +1,7 @@
 const { Command } = require('discord.js-commando');
 const { stripIndents } = require('common-tags');
 
-class About extends Command {
+class Yuri extends Command {
     constructor(client) {
         super(client, {
             name: 'yuri',
@@ -25,4 +25,4 @@ class About extends Command {
     }
 }
 
-module.exports = About;
+module.exports = Yuri;

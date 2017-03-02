@@ -38,6 +38,7 @@ class Stats extends Command {
                     Ping: ${Math.round(msg.client.ping)}ms
                     Channels: ${this.client.channels.size}
                     Members: ${this.client.users.size}
+                    Servers: ${this.client.guilds.size}
                     `)
                 .setImage(this.client.user.displayAvatarURL)
                 .setColor(8700043)

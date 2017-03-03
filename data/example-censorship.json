@@ -1,0 +1,11 @@
+{
+	"banned": [
+		"words for instant ban"
+	],
+	"warned": [
+		"words for a warning to the mod channel"
+	],
+	"false": [
+		"false positives to ignore"
+	]
+}

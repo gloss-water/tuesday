@@ -3,5 +3,8 @@
         "ownerID": "",
         "token": ""
     },
-    "prefix": ""
+    "prefix": "",
+    "exemptions": [
+    	"roleID to exclude"
+    ]
 }

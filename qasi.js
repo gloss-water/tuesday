@@ -1,5 +1,6 @@
 // Dependencies
 const { Client, SQLiteProvider } = require('discord.js-commando');
+const { RichEmbed } = require('discord.js');
 const winston = require('winston');
 const path = require('path');
 const sqlite = require('sqlite');
@@ -8,6 +9,7 @@ const { stripIndents } = require('common-tags');
 // Configuration
 const config = require('./data/config');
 const censorship = require('./data/censorship');
+let home = '';
 
 // Client set up
 const qasi = new Client({
@@ -67,8 +69,9 @@ const warnedWords = message => {
 // Event handlers
 
 qasi
-    .on('ready', () => {
-        winston.info(`QASI initialized. Logged in as ${qasi.user.username}#${qasi.user.discriminator}.`)
+    .once('ready', () => {
+        winston.info(`QASI initialized. Logged in as ${qasi.user.username}#${qasi.user.discriminator}.`);
+        home = qasi.channels.get(config.home);
     })
     .on('message', async message => {
         winston.info(
@@ -77,13 +80,49 @@ qasi
             );
         if (message.author.bot) return; // Ignore self and all bots
         if (message.channel.type === 'dm') return; // Ignore dms
-        // Guild messages from here on
+        
+        // Guild messages from here on.
+
+        // Check if any disallowed words from unexempt users and tell on them.
         if (!await isExempt(message)) {
-            winston.info(`banned?: ${bannedWords(message.cleanContent.toLowerCase())}`);
-            winston.info(`warned?: ${warnedWords(message.cleanContent.toLowerCase())}`);
+            if (bannedWords(message.cleanContent.toLowerCase())) {
+                home.sendEmbed(new RichEmbed()
+                    .setDescription(stripIndents`
+                        **Banning ${message.author} for usage of a banned word in ${message.channel}.**
+                        ${message.content}
+                    `)
+                    .setColor(16711680)
+                );
+                if (message.member.bannable) message.member.ban();
+                if (message.deletable) message.delete();
+                return;
+            }
+            
+            if (warnedWords(message.cleanContent.toLowerCase())) {
+                home.sendEmbed(new RichEmbed()
+                    .setDescription(stripIndents`
+                        **🚨 Funny Alert 🚨 ${message.author} in ${message.channel}.**
+                        ${message.content}
+                    `)
+                    .setColor(16737330)
+                );
+                return true;
+            }
         } else {
             winston.log('clean');
         }
+    })
+    .on('messageDelete', async message => {
+        if (message.author.id === qasi.user.id) return;
+        if (message.channel.id === home.id) return;
+        if (await isExempt(message)) return;
+        home.sendEmbed(new RichEmbed()
+            .setDescription(stripIndents`
+                **Message from ${message.author} deleted in ${message.channel}.**
+                ${message.content}
+            `)
+            .setColor(8700043)
+        );
     })
     .on('disconnect', () => {
         winston.warn('QASI disconnected from Discord.')

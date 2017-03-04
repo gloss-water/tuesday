@@ -1,10 +1,11 @@
 {
     "auth": {
-        "ownerID": "",
-        "token": ""
+        "ownerID": "id of discord user who owns the bot",
+        "token": "client token"
     },
     "prefix": "",
+    "home": "channel ID to report to",
     "exemptions": [
-    	"roleID to exclude"
+    	"role name to exclude"
     ]
 }

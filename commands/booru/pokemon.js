@@ -9,7 +9,7 @@ class Pokemon extends Command {
             aliases: ['pk'],
             group: 'booru',
             memberName: 'pokemon',
-            description: 'Searches for a picture tagged pokemon on gelbooru.',
+            description: 'Searches for a picture tagged pokemon on safebooru.',
             throttling: {
                 usages: 1,
                 duration: 10

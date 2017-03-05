@@ -4,12 +4,14 @@ const { RichEmbed } = require('discord.js');
 const winston = require('winston');
 const path = require('path');
 const sqlite = require('sqlite');
+const fs = require('fs');
 const { stripIndents } = require('common-tags');
 
 // Configuration
 const config = require('./data/config');
 const censorship = require('./data/censorship');
 let home = '';
+let welcome = {};
 
 // Client set up
 const qasi = new Client({
@@ -22,6 +24,7 @@ qasi.setProvider(
 );
 qasi.registry.registerGroups([
     ['admin', 'Administration'],
+    ['membership', 'Membership Utilities'],
     ['info', 'Information'],
     ['misc', 'Miscellaneous']
 ]).registerDefaults().registerCommandsIn(path.join(__dirname, 'commands'));
@@ -66,12 +69,20 @@ const warnedWords = message => {
     return warned;
 };
 
+const loadWelcomeData = () => {
+    fs.readFile(__dirname + '/data/welcomes.qasi', (err, data) => {
+        if (err) throw err;
+        welcome = JSON.parse(data);
+    });
+}
+
 // Event handlers
 
 qasi
     .once('ready', () => {
         winston.info(`QASI initialized. Logged in as ${qasi.user.username}#${qasi.user.discriminator}.`);
         home = qasi.channels.get(config.home);
+        loadWelcomeData();
     })
     .on('message', async message => {
         winston.info(
@@ -123,6 +134,19 @@ qasi
             `)
             .setColor(8700043)
         );
+    })
+    .on('guildMemberAdd', member => {
+        if (!member.guild.id === config.guild) return;
+        home.sendMessage(`${member} has joined the server.`);
+        if (welcome[member.id] === undefined) {
+            member.sendMessage(stripIndents`
+                hello ^_^ welcome to the Nyanners server. please remember to check out <#183028007403913216> if you haven't already!
+            `).then(member.sendMessage(stripIndents`
+                oh, by the way: would you like me to post a welcome message for you in <#182712193287061504>?
+            `)).then(member.sendMessage(`just respond here with 'welcome' any time in the future and i'll do it. :)`));
+        } else {
+            home.sendMessage(`Almost sent a welcome message to ${member}, but they have been here before or something :thinking: `)
+        }
     })
     .on('disconnect', () => {
         winston.warn('QASI disconnected from Discord.')

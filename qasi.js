@@ -127,6 +127,7 @@ qasi
     .on('messageDelete', async message => {
         if (message.author.id === qasi.user.id) return;
         if (message.channel.id === home.id) return;
+        if (message.guild.id !== config.guild) return;
         if (await isExempt(message)) return;
         home.sendEmbed(new RichEmbed()
             .setDescription(stripIndents`
@@ -148,6 +149,15 @@ qasi
         } else {
             home.sendMessage(`Almost sent a welcome message to ${member}, but they have been here before or something :thinking: `)
         }
+    })
+    .on('guildMemberRemove', member => {
+        home.sendMessage(`${member} (${member.displayName}) has left or been kicked from the server.`);
+    })
+    .on('guildBanAdd', (guild, user) => {
+        home.sendMessage(`${user} has been banned from the server.`);
+    })
+    .on('guildBanRemove', (guild, user) => {
+        home.sendMessage(`${user} has been unbanned from the server.`);
     })
     .on('disconnect', () => {
         winston.warn('QASI disconnected from Discord.')

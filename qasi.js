@@ -24,8 +24,9 @@ qasi.setProvider(
 );
 qasi.registry.registerGroups([
     ['admin', 'Administration'],
-    ['membership', 'Membership Utilities'],
+    ['booru', 'Image Search'],
     ['info', 'Information'],
+    ['membership', 'Membership Utilities'],
     ['misc', 'Miscellaneous']
 ]).registerDefaults().registerCommandsIn(path.join(__dirname, 'commands'));
 

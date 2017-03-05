@@ -5,7 +5,11 @@
     },
     "prefix": "",
     "home": "channel ID to report to",
+    "guild": "guild main functionality is aimed at",
     "exemptions": [
     	"role name to exclude"
+    ],
+    "search": [
+    	"channels allowed to image search"
     ]
 }

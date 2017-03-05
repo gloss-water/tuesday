@@ -1,4 +1,4 @@
-const { search, sendResults } = require('./search');
+const { safeSearch, safeResults } = require('./search');
 const { Command } = require('discord.js-commando');
 const config = require('../../data/config');
 
@@ -19,8 +19,8 @@ class Pokemon extends Command {
 
     async run(message, args) {
         if (config.search.indexOf(message.channel.id) === -1) return message.reply(`this command only works in search enabled channels.`);
-        search('pokemon', args.replace('+','%2B').replace(' ', '+'))
-            .then(result => sendResults(result, message), err => {
+        safeSearch(('pokemon ' + args).replace('+','%2B').replace(' ', '+'))
+            .then(result => safeResults(result, message), err => {
                 console.log(err);
             });
     }

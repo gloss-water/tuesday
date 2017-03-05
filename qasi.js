@@ -127,7 +127,6 @@ qasi
     .on('messageDelete', async message => {
         if (message.author.id === qasi.user.id) return;
         if (message.channel.id === home.id) return;
-        if (message.guild.id !== config.guild) return;
         if (await isExempt(message)) return;
         home.sendEmbed(new RichEmbed()
             .setDescription(stripIndents`
@@ -151,6 +150,7 @@ qasi
         }
     })
     .on('guildMemberRemove', member => {
+        if (!member.guild.id === config.guild) return;
         home.sendMessage(`${member} (${member.displayName}) has left or been kicked from the server.`);
     })
     .on('guildBanAdd', (guild, user) => {

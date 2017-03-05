@@ -19,6 +19,7 @@ class GuildStats extends Command {
     }
 
     async run(message) {
+        if (!message.guild) return message.reply('This command must be run on a server.');
         return message.embed(new RichEmbed()
                 .setTitle(`${message.guild.name}'s stats! ^_^`)
                 .setFooter(`requested by ${message.author.username}`, message.author.avatarURL)

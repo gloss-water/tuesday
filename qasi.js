@@ -70,7 +70,7 @@ const warnedWords = message => {
 };
 
 const loadWelcomeData = () => {
-    fs.readFile(__dirname + '/data/welcomes.qasi', (err, data) => {
+    fs.readFile(__dirname + '/data/welcomes.json', (err, data) => {
         if (err) throw err;
         welcome = JSON.parse(data);
     });

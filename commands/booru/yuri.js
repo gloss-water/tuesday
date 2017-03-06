@@ -9,7 +9,7 @@ class Yuri extends Command {
             aliases: ['yoi'],
             group: 'booru',
             memberName: 'yuri',
-            description: 'Searches for a picture tagged yuri_on_ice on safebooru.',
+            description: 'Searches for a picture tagged yuri!!!_on_ice on safebooru.',
             throttling: {
                 usages: 1,
                 duration: 10

@@ -31,15 +31,13 @@ qasi.registry.registerGroups([
 
 // Utility methods (let's move these somewhere else soon)
 const isExempt = async message => {
-    let exempt = false;
     let member = message.member;
     if (!member) { // If we haven't cached the member yet, we need to grab it
         await qasi.fetchUser(message.author.id);
         member = await message.guild.fetchMember(message.author);
     }
     // Check every exemption to see if it exists;
-    config.exemptions.every(ex => { if (member.roles.exists('name', ex)) exempt = true });
-    return exempt;
+    return config.exemptions.some(ex => { return member.roles.exists('name', ex) });
 };
 
 const bannedWords = message => {

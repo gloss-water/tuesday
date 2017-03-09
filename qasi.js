@@ -24,7 +24,6 @@ qasi.setProvider(
 );
 qasi.registry.registerGroups([
     ['admin', 'Administration'],
-    ['booru', 'Image Search'],
     ['info', 'Information'],
     ['membership', 'Membership Utilities'],
     ['misc', 'Miscellaneous']

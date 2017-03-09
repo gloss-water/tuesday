@@ -34,7 +34,7 @@ class Stats extends Command {
                 .setTitle(`Cassandra 2.0 statistics! ^_^`)
                 .setFooter(`requested by ${msg.author.username}`, msg.author.avatarURL)
                 .setDescription(stripIndents`
-                    Uptime: ${uptime(this.client.uptime % 8.64e7)}
+                    Uptime: ${uptime(this.client.uptime)}
                     Ping: ${Math.round(msg.client.ping)}ms
                     Channels: ${this.client.channels.size}
                     Members: ${this.client.users.size}

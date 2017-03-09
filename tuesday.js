@@ -2,6 +2,7 @@
 const { Client, SQLiteProvider } = require('discord.js-commando');
 const winston = require('winston');
 const sqlite = require('sqlite');
+const path = require('path');
 const config = require('./data/config');
 
 // Client set up
@@ -14,6 +15,7 @@ tuesday.setProvider(
         .then(db => new SQLiteProvider(db))
 );
 tuesday.registry.registerGroups([
+    ['info', 'Information'],
     ['booru', 'Image Search']
 ]).registerDefaults().registerCommandsIn(path.join(__dirname, 'commands'));
 

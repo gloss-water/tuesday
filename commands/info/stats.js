@@ -31,10 +31,11 @@ class Stats extends Command {
 
     async run(msg) {
         return msg.embed(new RichEmbed()
-                .setTitle(`Cassandra 2.0 statistics! ^_^`)
+                .setTitle(`Tuesday Imageboard Text-based Search (TITS) Statistics`)
                 .setFooter(`requested by ${msg.author.username}`, msg.author.avatarURL)
                 .setDescription(stripIndents`
                     Uptime: ${uptime(this.client.uptime)}
+                    Usage: ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB
                     Ping: ${Math.round(msg.client.ping)}ms
                     Channels: ${this.client.channels.size}
                     Members: ${this.client.users.size}

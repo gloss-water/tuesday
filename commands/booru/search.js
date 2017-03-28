@@ -5,7 +5,7 @@ const { RichEmbed } = require('discord.js');
 module.exports = {
     safeSearch: (tags) => {
         return new Promise((response, reject) => {
-            const request = https.get(`https://gelbooru.com/index.php?page=dapi&s=post&q=index&tags=${tags}+rating:safe+-furry+-bestiality+-micro_bikini`, res => {
+            const request = https.get(`https://safebooru.org/index.php?page=dapi&s=post&q=index&tags=${tags}+-furry+-bestiality+-micro_bikini`, res => {
                 let xml = '';
                 res.on('data', chunk => {
                     xml += chunk;
@@ -31,7 +31,7 @@ module.exports = {
         }
         message.channel.sendEmbed(new RichEmbed()
             .setTitle(`view source`)
-            .setURL(`https://gelbooru.com/index.php?page=post&s=view&id=${post.id}`)
+            .setURL(`https://safebooru.org/index.php?page=post&s=view&id=${post.id}`)
             .setImage(`https:${post.sample_url}`)
             .setFooter(`searching for ${message.author.username}`, message.author.avatarURL)
             .setDescription(post.tags.substr(0,500).replace('_', '\_'))
